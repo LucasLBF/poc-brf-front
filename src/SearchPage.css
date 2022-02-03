@@ -1,11 +1,10 @@
 .container {
   width: 90%;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 2rem;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  gap: 3rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -14,3 +13,14 @@
   margin-left: 10%;
   font-weight: bold;
 }
+
+.loading-spinner-container {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .loading-spinner {
+  width: 300px;
+} */

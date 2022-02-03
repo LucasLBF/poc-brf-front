@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import TextBox from "./TextBox";
+import ImageBox from "./ImageBox";
 import "./SearchPage.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SearchPage = () => {
   const [fetchedData, setFetchedData] = useState({ results: [] });
-  const [keywords, setKeywords] = useState("");
-
-  useEffect(() => {
-    fetchData(keywords);
-  }, [keywords]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchData(keyword) {
     const resp = await fetch("http://localhost:5000/", {
@@ -20,27 +18,44 @@ const SearchPage = () => {
       body: JSON.stringify({ kwrd: keyword }),
     });
     const data = await resp.json();
-    console.log(data);
+    setIsLoading(false);
     setFetchedData(data);
   }
 
   return (
     <>
-      <Navbar setKeywords={setKeywords} />
-      {fetchedData && (
+      <Navbar fetchData={fetchData} setIsLoading={setIsLoading} />
+      {isLoading && (
+        <div className="loading-spinner-container">
+          <CircularProgress size="100px" />
+        </div>
+      )}
+      {fetchedData.results.length > 0 && !isLoading && (
         <>
           <p className="results-text">
-            {fetchedData.count} trecho(s) encontrado(s)
+            {fetchedData.count} resultados(s) encontrado(s)
           </p>
           <div className="container">
-            {fetchedData.results.map(data => (
-              <TextBox
-                textContent={data.content}
-                highlight={data.highlight}
-                page={data.page}
-                sourceName={data.source}
-              />
-            ))}
+            {fetchedData.results.map(data => {
+              if (data.type === "text") {
+                return (
+                  <TextBox
+                    textContent={data.content}
+                    highlight={data.highlight}
+                    page={data.page}
+                    sourceName={data.source}
+                  />
+                );
+              } else {
+                return (
+                  <ImageBox
+                    filename={data.filename}
+                    sourceName={data.source}
+                    page={data.page}
+                  />
+                );
+              }
+            })}
           </div>
         </>
       )}

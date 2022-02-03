@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 
-const Navbar = ({ setKeywords }) => {
+const Navbar = ({ fetchData, setIsLoading }) => {
   const [keyword, setKeyword] = useState("");
 
   return (
@@ -11,8 +11,9 @@ const Navbar = ({ setKeywords }) => {
         <form
           onSubmit={ev => {
             ev.preventDefault();
-            console.log(keyword);
-            setKeywords(keyword);
+            console.log("form result:", keyword);
+            setIsLoading(true);
+            fetchData(keyword);
           }}
         >
           <input
