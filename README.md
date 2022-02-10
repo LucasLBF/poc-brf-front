@@ -25,7 +25,7 @@
 
 ## Sobre o projeto
 
-Repositório do frontend para a prova de conceito da solução proposta pela equipe BRF no [CESAR SUMMER JOB 2022.1] (https://www.summerjob.cesar.org.br/)
+Repositório do frontend para a prova de conceito da solução proposta pela equipe BRF no [CESAR SUMMER JOB 2022.1](https://www.summerjob.cesar.org.br/)
 
 ## Tecnologias Utilizadas
 
